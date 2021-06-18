@@ -80,6 +80,7 @@
   TimerLib|Silicon/RISC-V/ProcessorPkg/Library/RiscVTimerLib/BaseRiscVTimerLib.inf
 
 [LibraryClasses.common.DXE_DRIVER]
+  FdtLib|EmbeddedPkg/Library/FdtLib/FdtLib.inf
   PcdLib|MdePkg/Library/DxePcdLib/DxePcdLib.inf
   PlatformBootManagerLib|Platform/RISC-V/PlatformPkg/Library/PlatformBootManagerLib/PlatformBootManagerLib.inf
 
