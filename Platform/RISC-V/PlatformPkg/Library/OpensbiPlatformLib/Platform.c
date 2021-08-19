@@ -141,7 +141,8 @@ static int generic_early_init(bool cold_boot)
 	if (!cold_boot)
 		return 0;
 
-	return fdt_reset_init();
+	fdt_reset_init();
+	return 0;
 }
 
 static int generic_final_init(bool cold_boot)
