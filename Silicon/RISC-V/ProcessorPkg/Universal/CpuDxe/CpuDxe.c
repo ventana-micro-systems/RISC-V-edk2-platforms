@@ -7,6 +7,8 @@
 
 **/
 
+#include <Library/BaseMemoryLib.h>
+#include <RiscVImpl.h>
 #include "CpuDxe.h"
 
 //
@@ -14,6 +16,26 @@
 //
 STATIC BOOLEAN mInterruptState = FALSE;
 STATIC EFI_HANDLE mCpuHandle = NULL;
+
+EFI_STATUS
+EFIAPI
+RiscvGetBootHartId (
+  IN RISCV_EFI_BOOT_PROTOCOL   *This,
+  OUT UINTN                    *BootHartId
+  )
+{
+  if((This == NULL) || (BootHartId == NULL)) {
+    return EFI_INVALID_PARAMETER;
+  }
+  UINT32 HartId = FixedPcdGet32(PcdBootHartId);
+
+  CopyMem(BootHartId, &HartId, sizeof(HartId));
+  return EFI_SUCCESS;
+}
+
+RISCV_EFI_BOOT_PROTOCOL  gRiscvBootProtocol = {
+  RiscvGetBootHartId
+};
 
 EFI_CPU_ARCH_PROTOCOL  gCpu = {
   CpuFlushCpuDataCache,
@@ -302,6 +324,13 @@ InitializeCpu (
   //
   DisableInterrupts ();
 
+  Status = gBS->InstallProtocolInterface (&ImageHandle,
+				          &gUefiRiscVBootProtocolGuid,
+					  EFI_NATIVE_INTERFACE,
+					  &gRiscvBootProtocol
+					 );
+
+  ASSERT_EFI_ERROR (Status);
   //
   // Install CPU Architectural Protocol
   //
