@@ -27,6 +27,7 @@ typedef UINT64 RISC_V_REGS_PROTOTYPE;
 #else
 #endif
 
+typedef struct _EFI_RISCV_BOOT_PROTOCOL EFI_RISCV_BOOT_PROTOCOL;
 //
 // Structure for 128-bit value
 //
@@ -83,5 +84,24 @@ typedef struct _RISCV_MACHINE_MODE_CONTEXT {
   EFI_PHYSICAL_ADDRESS UserModeTrapHandler;       /// USer mode trap handler.
   TRAP_HANDLER_CONTEXT MModeHandler;              /// Handler for machine mode.
 } RISCV_MACHINE_MODE_CONTEXT;
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_GET_PROTOCOL_VERSION) (
+  IN EFI_RISCV_BOOT_PROTOCOL   *This,
+  OUT UINT32		       *Version
+  );
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_GET_BOOT_HARTID) (
+  IN EFI_RISCV_BOOT_PROTOCOL   *This,
+  OUT UINT32		       *BootHartId
+  );
+
+typedef struct _EFI_RISCV_BOOT_PROTOCOL {
+  EFI_GET_PROTOCOL_VERSION  GetProtocolVersion;
+  EFI_GET_BOOT_HARTID       GetBootHartId;
+} EFI_RISCV_BOOT_PROTOCOL;
 
 #endif

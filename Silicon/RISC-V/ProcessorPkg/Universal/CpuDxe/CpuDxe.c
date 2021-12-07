@@ -7,6 +7,8 @@
 
 **/
 
+#include <Library/BaseMemoryLib.h>
+#include <RiscVImpl.h>
 #include "CpuDxe.h"
 
 //
@@ -14,6 +16,43 @@
 //
 STATIC BOOLEAN mInterruptState = FALSE;
 STATIC EFI_HANDLE mCpuHandle = NULL;
+STATIC UINT32 BootProtocolVersion = 0x00010000;
+
+EFI_STATUS
+EFIAPI
+RiscvGetProtocolVersion (
+  IN EFI_RISCV_BOOT_PROTOCOL   *This,
+  OUT UINT32                   *Version
+  )
+{
+  if((This == NULL) || (Version == NULL)) {
+    return EFI_INVALID_PARAMETER;
+  }
+
+  CopyMem(Version, &BootProtocolVersion, sizeof(BootProtocolVersion));
+  return EFI_SUCCESS;
+}
+
+EFI_STATUS
+EFIAPI
+RiscvGetBootHartId (
+  IN EFI_RISCV_BOOT_PROTOCOL   *This,
+  OUT UINT32                   *BootHartId
+  )
+{
+  UINT32 HartId = FixedPcdGet32(PcdBootHartId);
+  if((This == NULL) || (BootHartId == NULL)) {
+    return EFI_INVALID_PARAMETER;
+  }
+
+  CopyMem(BootHartId, &HartId, sizeof(HartId));
+  return EFI_SUCCESS;
+}
+
+EFI_RISCV_BOOT_PROTOCOL  gRiscvBootProtocol = {
+  RiscvGetProtocolVersion,
+  RiscvGetBootHartId
+};
 
 EFI_CPU_ARCH_PROTOCOL  gCpu = {
   CpuFlushCpuDataCache,
@@ -302,6 +341,13 @@ InitializeCpu (
   //
   DisableInterrupts ();
 
+  Status = gBS->InstallProtocolInterface (&ImageHandle,
+				          &gUefiRiscVBootProtocolGuid,
+					  EFI_NATIVE_INTERFACE,
+					  &gRiscvBootProtocol
+					 );
+
+  ASSERT_EFI_ERROR (Status);
   //
   // Install CPU Architectural Protocol
   //
