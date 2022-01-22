@@ -1,4 +1,4 @@
 [submodule "Silicon/RISC-V/ProcessorPkg/Library/RiscVOpensbiLib/opensbi"]
 	path = Silicon/RISC-V/ProcessorPkg/Library/RiscVOpensbiLib/opensbi
 	url = git@github.com:ventana-micro-systems/RISC-V-opensbi.git
-	branch = acpi_aia_v1
+	branch = riscv_aia_v2
