@@ -66,6 +66,8 @@
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamSize
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdNumberofU5Cores
   gSiFiveU5SeriesPlatformsPkgTokenSpaceGuid.PcdE5MCSupported
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdSystemMemoryBase
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdSystemMemorySize
 
 [Ppis]
   gEfiPeiMasterBootModePpiGuid

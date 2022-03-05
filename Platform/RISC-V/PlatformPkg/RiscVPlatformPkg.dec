@@ -88,7 +88,11 @@
 [PcdsFeatureFlag]
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootlogoOnlyEnable|FALSE|BOOLEAN|0x00001200
 
-[PcdsFixedAtBuild, PcdsPatchableInModule, PcdsDynamic, PcdsDynamicEx]
+[PcdsDynamic]
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdSystemMemorySize|0x40000000|UINT64|0x00001300
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdSystemMemoryBase|0x80000000|UINT64|0x00001301
+
+[PcdsFixedAtBuild, PcdsPatchableInModule, PcdsDynamicEx]
 
 [UserExtensions.TianoCore."ExtraFiles"]
   RiscVPlatformPkgExtra.uni
