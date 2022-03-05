@@ -70,6 +70,7 @@
 # as {0x1, 0x2, 0x3}.
 #
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartIndexToId|NULL|VOID*|0x00001086
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdEdk2InSMode|0|UINT32|0x00001087
 #
 # Definitions for OpenSbi
 #

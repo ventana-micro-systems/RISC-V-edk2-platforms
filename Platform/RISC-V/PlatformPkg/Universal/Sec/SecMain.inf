@@ -61,6 +61,7 @@
 
 [Pcd]
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdEdk2InSMode
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRootFirmwareDomainBaseAddress
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdRootFirmwareDomainSize
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootableHartNumber
